@@ -1,0 +1,44 @@
+package com.taobao.android.dinamicx.bindingx;
+
+public class DXBindingXConstant {
+    public static final String AP = "ap";
+    public static final String ARG = "ARG";
+    public static final String CHILDREN = "children";
+    public static final String ELEMENT = "element";
+    public static final String ELEMENT_WIDGETNODE = "element_widgetnode";
+    public static final String EXIT_EXPRESSION = "exitExpression";
+    public static final String EXPRESSION = "expression";
+    public static final String FALSE = "false";
+    public static final String NP = "np";
+    public static final String NUMERIC_LITERRAL = "NumericLiteral";
+    public static final String ORIGIN_VALUE = "origin_value";
+    public static final String PROPERTY = "property";
+    public static final String PROPS = "props";
+    public static final String REALTIME = "realTime";
+    public static final String REPEAT = "repeat";
+    public static final String RESET = "reset";
+    public static final String RESET_ON_CANCEL = "resetOnCancel";
+    public static final String RESET_ON_FINISH = "resetOnFinish";
+    public static final String RESET_ON_STOP = "resetOnStop";
+    public static final int RESET_PROPERTY_FROM_WIDGET_TO_VIEW = 2;
+    public static final String SCROLL = "scroll";
+    public static final String SINGLE_QUOTE = "'";
+    public static final String START_ID = "$";
+    public static final String STATE = "state";
+    public static final String STATE_END = "end";
+    public static final String STATE_EXIT = "exit";
+    public static final String STATE_SCROLL_END = "scrollEnd";
+    public static final String STATE_SCROLL_START = "scrollStart";
+    public static final String STATE_START = "start";
+    public static final String STRING_LITERRAL = "StringLiteral";
+    public static final int SYNC_DATA_FROM_VIEW_TO_WIDGET = 1;
+    public static final String THIS = "this";
+    public static final String TIMING = "timing";
+    public static final String TOKEN = "token";
+    public static final String TRANSFORMED = "transformed";
+    public static final String TRUE = "true";
+    public static final String TYPE = "type";
+    public static final String UPDATE_FLATTEN_ONLY_ON_FINISH = "updateFlattenOnlyOnFinish";
+    public static final String UPDATE_FLATTEN_ONLY_ON_STOP = "updateFlattenOnlyOnStop";
+    public static final String VALUE = "value";
+}

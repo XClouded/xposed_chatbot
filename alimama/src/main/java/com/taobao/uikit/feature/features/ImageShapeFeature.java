@@ -1,0 +1,254 @@
+package com.taobao.uikit.feature.features;
+
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.graphics.drawable.shapes.RoundRectShape;
+import android.graphics.drawable.shapes.Shape;
+import android.os.Build;
+import android.util.AttributeSet;
+import android.widget.ImageView;
+import com.taobao.uikit.base.R;
+import com.taobao.uikit.feature.callback.CanvasCallback;
+import com.taobao.uikit.feature.callback.ImageCallback;
+import com.taobao.uikit.feature.callback.LayoutCallback;
+import com.taobao.uikit.feature.view.IGetBitmap;
+
+public class ImageShapeFeature extends AbsFeature<ImageView> implements LayoutCallback, ImageCallback, CanvasCallback {
+    public static final int RoundRectShape = 1;
+    public static final int RoundShape = 0;
+    private float[] mCornerRadiusArray;
+    private boolean mIsRound = true;
+    private final Matrix mMatrix = new Matrix();
+    private RectF mRectF;
+    private Shape mShape;
+    private boolean mStrokeEnable = false;
+    private Paint mStrokePaint;
+    private Path mStrokePath;
+    private float mStrokeWidth = 0.0f;
+
+    public void afterDispatchDraw(Canvas canvas) {
+    }
+
+    public void afterDraw(Canvas canvas) {
+    }
+
+    public void beforeDispatchDraw(Canvas canvas) {
+    }
+
+    public void beforeDraw(Canvas canvas) {
+    }
+
+    public void beforeOnDraw(Canvas canvas) {
+    }
+
+    public void beforeOnLayout(boolean z, int i, int i2, int i3, int i4) {
+    }
+
+    public void constructor(Context context, AttributeSet attributeSet, int i) {
+        int i2 = -7829368;
+        if (attributeSet != null) {
+            TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.ImageShapeFeature, i, 0);
+            int i3 = obtainStyledAttributes.getInt(R.styleable.ImageShapeFeature_uik_shapeType, 0);
+            initCornerRadius(obtainStyledAttributes);
+            initShape(i3);
+            i2 = obtainStyledAttributes.getColor(R.styleable.ImageShapeFeature_uik_strokeColor, -7829368);
+            this.mStrokeWidth = obtainStyledAttributes.getDimension(R.styleable.ImageShapeFeature_uik_strokeWidth, 0.0f);
+            this.mStrokeEnable = obtainStyledAttributes.getBoolean(R.styleable.ImageShapeFeature_uik_strokeEnable, false);
+            obtainStyledAttributes.recycle();
+        }
+        this.mStrokePaint = new Paint();
+        this.mStrokePaint.setStyle(Paint.Style.STROKE);
+        this.mStrokePaint.setAntiAlias(true);
+        this.mStrokePaint.setColor(i2);
+        this.mStrokePaint.setStrokeWidth(this.mStrokeWidth);
+        this.mStrokePath = new Path();
+        this.mRectF = new RectF();
+    }
+
+    private void initCornerRadius(TypedArray typedArray) {
+        float dimension = typedArray.getDimension(R.styleable.ImageShapeFeature_uik_cornerRadius, 0.0f);
+        float dimension2 = typedArray.getDimension(R.styleable.ImageShapeFeature_uik_topLeftRadius, dimension);
+        float dimension3 = typedArray.getDimension(R.styleable.ImageShapeFeature_uik_bottomLeftRadius, dimension);
+        float dimension4 = typedArray.getDimension(R.styleable.ImageShapeFeature_uik_topRightRadius, dimension);
+        float dimension5 = typedArray.getDimension(R.styleable.ImageShapeFeature_uik_bottomRightRadius, dimension);
+        this.mCornerRadiusArray = new float[]{dimension2, dimension2, dimension4, dimension4, dimension5, dimension5, dimension3, dimension3};
+    }
+
+    private void initShape(int i) {
+        if (i == 0) {
+            this.mShape = new OvalShape();
+            if (this.mHost != null) {
+                ((ImageView) this.mHost).setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            }
+            this.mIsRound = true;
+        } else if (1 == i) {
+            this.mShape = new RoundRectShape(this.mCornerRadiusArray, new RectF(0.0f, 0.0f, 0.0f, 0.0f), (float[]) null);
+            this.mIsRound = false;
+        }
+    }
+
+    public Drawable wrapImageDrawable(Drawable drawable) {
+        MyShapeDrawable myShapeDrawable;
+        float f;
+        float f2;
+        if (((ImageView) getHost()).getWidth() <= 0 && ((ImageView) getHost()).getHeight() <= 0) {
+            return drawable;
+        }
+        Drawable drawable2 = ((ImageView) getHost()).getDrawable();
+        if (drawable2 instanceof MyShapeDrawable) {
+            myShapeDrawable = (MyShapeDrawable) drawable2;
+        } else {
+            myShapeDrawable = new MyShapeDrawable(this.mShape);
+            if (Build.VERSION.SDK_INT <= 16) {
+                myShapeDrawable.setPadding(new Rect(0, 0, 0, 0));
+            }
+        }
+        int width = ((ImageView) getHost()).getWidth();
+        int height = ((ImageView) getHost()).getHeight();
+        if (myShapeDrawable.getIntrinsicHeight() <= 0 && myShapeDrawable.getIntrinsicWidth() <= 0) {
+            if (this.mIsRound) {
+                width = Math.min(width, height);
+                height = width;
+            }
+            myShapeDrawable.setIntrinsicWidth(width);
+            myShapeDrawable.setIntrinsicHeight(height);
+        }
+        if ((drawable instanceof BitmapDrawable) || (drawable instanceof IGetBitmap)) {
+            Bitmap bitmap = getBitmap(drawable);
+            if (bitmap != null) {
+                int width2 = bitmap.getWidth();
+                int height2 = bitmap.getHeight();
+                BitmapShader bitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+                float f3 = 0.0f;
+                if (width2 * height > height2 * width) {
+                    f = ((float) height) / ((float) height2);
+                    f2 = (((float) width) - (((float) width2) * f)) * 0.5f;
+                } else {
+                    f = ((float) width) / ((float) width2);
+                    f3 = (((float) height) - (((float) height2) * f)) * 0.5f;
+                    f2 = 0.0f;
+                }
+                this.mMatrix.reset();
+                this.mMatrix.setScale(f, f);
+                this.mMatrix.postTranslate(f2 + 0.5f, f3 + 0.5f);
+                bitmapShader.setLocalMatrix(this.mMatrix);
+                myShapeDrawable.getPaint().setShader(bitmapShader);
+            } else {
+                myShapeDrawable.getPaint().setShader((Shader) null);
+            }
+        } else if (!(drawable instanceof ColorDrawable)) {
+            return drawable;
+        } else {
+            myShapeDrawable.getPaint().setShader((Shader) null);
+            myShapeDrawable.getPaint().setColor(((ColorDrawable) drawable).getColor());
+        }
+        myShapeDrawable.invalidateSelf();
+        return myShapeDrawable;
+    }
+
+    private Bitmap getBitmap(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        }
+        if (drawable instanceof IGetBitmap) {
+            return ((IGetBitmap) drawable).getBitmap();
+        }
+        return null;
+    }
+
+    public void afterOnLayout(boolean z, int i, int i2, int i3, int i4) {
+        if (z) {
+            if (this.mIsRound) {
+                int i5 = i3 - i;
+                int i6 = i4 - i2;
+                this.mStrokePath.addCircle(((float) i5) * 0.5f, ((float) i6) * 0.5f, (((float) Math.min(i5, i6)) - this.mStrokeWidth) * 0.5f, Path.Direction.CCW);
+            } else if (this.mCornerRadiusArray != null) {
+                float f = this.mStrokeWidth * 0.5f;
+                this.mRectF.set(f, f, ((float) (i3 - i)) - f, ((float) (i4 - i2)) - f);
+                this.mStrokePath.addRoundRect(this.mRectF, this.mCornerRadiusArray, Path.Direction.CCW);
+            }
+            ((ImageView) getHost()).setImageDrawable(((ImageView) getHost()).getDrawable());
+        }
+    }
+
+    public void afterOnDraw(Canvas canvas) {
+        if (this.mStrokeEnable) {
+            canvas.drawPath(this.mStrokePath, this.mStrokePaint);
+        }
+    }
+
+    public void setShape(int i) {
+        initShape(i);
+        requestLayoutHost();
+        invalidateHost();
+    }
+
+    public void setCornerRadius(float f, float f2, float f3, float f4) {
+        this.mCornerRadiusArray = new float[]{f, f, f2, f2, f4, f4, f3, f3};
+        if (this.mShape instanceof RoundRectShape) {
+            this.mShape = new RoundRectShape(this.mCornerRadiusArray, new RectF(0.0f, 0.0f, 0.0f, 0.0f), (float[]) null);
+            requestLayoutHost();
+            invalidateHost();
+        }
+    }
+
+    public void setStrokeColor(int i) {
+        this.mStrokePaint.setColor(i);
+        invalidateHost();
+    }
+
+    public void setStrokeEnable(boolean z) {
+        this.mStrokeEnable = z;
+        requestLayoutHost();
+        invalidateHost();
+    }
+
+    public void setStrokeWidth(float f) {
+        this.mStrokeWidth = f;
+        this.mStrokePaint.setStrokeWidth(f);
+        requestLayoutHost();
+        invalidateHost();
+    }
+
+    private void requestLayoutHost() {
+        if (this.mHost != null) {
+            ((ImageView) this.mHost).requestLayout();
+        }
+    }
+
+    private void invalidateHost() {
+        if (this.mHost != null) {
+            ((ImageView) this.mHost).invalidate();
+        }
+    }
+
+    public void setHost(ImageView imageView) {
+        super.setHost(imageView);
+        if (this.mShape instanceof OvalShape) {
+            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        }
+    }
+
+    private static class MyShapeDrawable extends ShapeDrawable {
+        public MyShapeDrawable() {
+        }
+
+        public MyShapeDrawable(Shape shape) {
+            super(shape);
+        }
+    }
+}

@@ -1,0 +1,224 @@
+package com.ali.user.mobile.rpc;
+
+public class ApiConstants {
+
+    public static class ApiField {
+        public static final String ACTION_TYPE = "actionType";
+        public static final String APDID = "apdId";
+        public static final String API_REFERER = "apiReferer";
+        public static final String API_VERSION = "apiVersion";
+        public static final String APPKEY = "appKey";
+        public static final String APP_NAME = "appName";
+        public static final String APP_VERSION = "appVersion";
+        public static final String BASE_INFO = "baseInfo";
+        public static final String DEVICE_NAME = "deviceName";
+        public static final String DEVICE_TOKEN_KEY = "deviceTokenKey";
+        public static final String EXT = "ext";
+        public static final String EXTRA = "extra";
+        public static final String FROM_SITE = "fromSite";
+        public static final String H5_QUERY_STRING = "aliusersdk_h5querystring";
+        public static final String HAVANAID = "havanaId";
+        public static final String HID = "hid";
+        public static final String INFO = "info";
+        public static final String IV_TOKEN = "ivToken";
+        public static final String KEY = "key";
+        public static final String LOCALE = "locale";
+        public static final String LOGIN_INFO = "loginInfo";
+        public static final String LOGIN_SIGN = "loginSign";
+        public static final String MASTER_APPKEY = "masterAppKey";
+        public static final String MEMBER_ID = "memberId";
+        public static final String MOBILE = "mobile";
+        public static final String MTOP_APPKEY = "mtopAppKey";
+        public static final String OCEAN_APPKEY = "oceanAppKey";
+        public static final String RDS_INFO = "rdsInfo";
+        public static final String REQUEST = "request";
+        public static final String RISK_CONTROL_INFO = "riskControlInfo";
+        public static final String RISK_INFO = "riskInfo";
+        public static final String SCENE = "scene";
+        public static final String SDK_VERSION = "sdkVersion";
+        public static final String SESSION_ID = "sessionId";
+        public static final String SLAVE_APPKEY = "slaveAppKey";
+        public static final String SNS_BIND_CONTENT = "dialogContent";
+        public static final String SNS_BIND_TITLE = "dialogTitle";
+        public static final String SNS_CONFLICT_TAOBAO_AVATAR = "snsConflictTaobaoAvatar";
+        public static final String SNS_EMAIL = "snsEmail";
+        public static final String SNS_LOGIN_INFO = "snsLoginInfo";
+        public static final String SNS_LOGIN_TOKEN = "snsToken";
+        public static final String SNS_RESULT_CODE = "snsResultCode";
+        public static final String SNS_RESULT_MSG = "snsResultMsg";
+        public static final String SNS_TOKEN = "token";
+        public static final String SNS_TRUST_LOGIN_TOKEN = "snsTrustLoginToken";
+        public static final String SNS_USER_INFO = "snsUserInfo";
+        public static final String SSO_TOKEN_APPLY_REQUEST = "ssoTokenApplyRequest";
+        public static final String STATUS = "status";
+        public static final String STOREID = "storeId";
+        public static final String TIMESTAMP = "timestamp";
+        public static final String TOKEN = "token";
+        public static final String TOKEN_INFO = "tokenInfo";
+        public static final String TRUST_LOGIN = "trustLogin";
+        public static final String UMID_TOKEN = "umidToken";
+        public static final String USER_ID = "userId";
+        public static final String USER_INFO = "userInfo";
+        public static final String USER_INPUT_NAME = "userInputName";
+        public static final String VERSION = "version";
+        public static final String VERSION_1_0 = "1.0";
+        public static final String VERSION_1_1 = "1.1";
+        public static final String VERSION_2_0 = "2.0";
+        public static final String WIRELESS_ENVM = "wirelessEnvm";
+    }
+
+    public static class ApiName {
+        public static final String ACCOUNT_BIND = "mtop.taobao.tbmpc.extraUserBind";
+        public static final String ALIPAY_SSO_LOGIN = "mtop.taobao.havana.mlogin.alipayaso";
+        public static final String API_AUTH_NUM_REIGSTER = "mtop.havana.register.sdk.verdor.register";
+        public static final String API_CAPTCHA_CHECK = "mtop.havana.register.sdk.captcha.check";
+        public static final String API_CHECK_VENDOR_REG = "mtop.havana.register.judge.vendor.reg";
+        public static final String API_DIRECT_REGISTER = "mtop.havana.register.sdk.direct.register";
+        public static final String API_FAST_REGISTER = "mtop.havana.register.sdk.sns.register";
+        public static final String API_LOGIN_COUNTRY = "mtop.taobao.countryservice.country.get";
+        public static final String API_LOGIN_SEND_SMS = "mtop.taobao.mloginService.smsSend";
+        public static final String API_REGISTER = "mtop.havana.register.sdk.register";
+        public static final String API_SEND_SMS = "mtop.havana.register.sdk.checkcode.send";
+        public static final String API_SMS_LOGIN = "mtop.taobao.mloginService.smsLogin";
+        public static final String APPLY_SSO_LOGIN = "com.taobao.mtop.mLoginTokenService.applySsoToken";
+        public static final String APPLY_SSO_LOGIN_COMMON = "mtop.taobao.commonuse.mloginService.applySsoToken";
+        public static final String APPLY_SSO_TOKEN_V2 = "com.taobao.mtop.mLoginTokenService.applySsoTokenV2";
+        public static final String APPLY_SSO_V2 = "com.taobao.mtop.mLoginTokenService.applySsoTokenV2";
+        public static final String APPLY_UNIFY_SSO_TOKEN = "mtop.taobao.commonuse.mloginService.applyUnifySsoToken";
+        public static final String AUTO_LOGIN = "com.taobao.mtop.mLoginUnitService.autoLogin";
+        public static final String AUTO_LOGIN_COMMON = "mtop.taobao.commonuse.mloginService.autoLogin";
+        public static final String CAN_CHANGE_NICK = "mtop.taobao.tbmpc.canChangeNick";
+        public static final String COMMON_CANCEL_QRCODE = "mtop.taobao.commonuse.mloginService.canceledQrCode";
+        public static final String COMMON_CONFIRM_QRCODE = "mtop.taobao.commonuse.mloginService.confirmedQrCode";
+        public static final String COMMON_SCANED_LOGIN = "mtop.taobao.commonuse.mloginService.qrcodelogin";
+        public static final String COMMON_SCAN_QRCODE = "mtop.taobao.commonuse.mloginService.scanedQrCode";
+        public static final String EASY_LOGIN = "com.taobao.mtop.mEasyLoginService.login";
+        public static final String FETCH_LOING_SCAN_TOKEN = "mtop.taobao.mloginService.preScanFaceLogin";
+        public static final String GENERATE_URL = "mtop.taobao.sdk.genurl";
+        public static final String GET_ALIPAY3_SIGN = "mtop.taobao.login.signForAlipaySNSLogin";
+        public static final String GET_ALIPAY_COOKIES = "com.taobao.mtop.login.getAlipayCookies";
+        public static final String GET_APP_LAUNCH_INFO = "mtop.com.taobao.mloginService.getAppLaunchInfo";
+        public static final String GET_DAMAI_BINDED_COOKIE = "mtop.taobao.mloginService.bridgeTrustLogin";
+        public static final String GET_HAVANA_ACCOUNT_URL = "mtop.taobao.tbmpc.getSdkAccountCenterUrl";
+        public static final String GET_URL_WITH_SESSION = "mtop.taobao.tbmpc.getSdkAccountCenterUrlWithSession";
+        public static final String GET_WAP_LOGIN_COOKIES = "com.taobao.mtop.login.getWapLoginCookies";
+        public static final String GET_YOUKU_OPENSID_COOKIES = "mtop.taobao.login.getYouKuOpenSid";
+        public static final String GUC_AUTO_LOGIN = "mtop.taobao.gucMLoginService.autologin";
+        public static final String GUC_LOGOUT = "mtop.taobao.gucMLoginService.logout";
+        public static final String GUC_SNS_LOGIN = "mtop.taobao.gucMLoginService.snsLogin";
+        public static final String IV_NONLOGIN_CONSUME_IVTOKEN = "mtop.alibaba.havanaappiv.authenticate";
+        public static final String IV_NONLOGIN_VERFIY = "mtop.alibaba.havanaappiv.nonloginverify.url";
+        public static final String IV_VERFIY_URL = "mtop.alibaba.havanaappiv.verify.url";
+        public static final String LOGIN_SCAN_PRE_JUDGE = "mtop.taobao.mloginService.checkCanLoginValidators";
+        public static final String LOGOUT = "mtop.taobao.havana.mlogin.logout";
+        public static final String LOGOUT_COMMON = "mtop.taobao.commonuse.mloginService.logout";
+        public static final String MEMBER_CENTER_GET_ACCOUNT_CENTER_LIST = "mtop.taobao.tbmpc.findMemberCenterFeature";
+        public static final String MEMBER_CENTER_GET_SCANCODE_BY_STORE_ID = "mtop.havana.register.sdk.token.generate";
+        public static final String MEMBER_CENTER_SEND_SMS_CODE = "mtop.taobao.tbmpc.sendMobileMsg";
+        public static final String MEMBER_CENTER_VALIDATE_SMS = "mtop.taobao.tbmpc.validateMobileMsg";
+        public static final String MOBILE_LOGIN_COUNTRY_LIST = "mtop.taobao.login.getCountryCodes";
+        public static final String OCEAN_APPLY_SSO_TOKEN = "mtop.taobao.alibabaMLoginService.applySsoToken";
+        public static final String OCEAN_AUTO_LOGIN = "mtop.taobao.alibabaMLoginService.autologin";
+        public static final String OCEAN_CANCEL_QRCODE = "mtop.taobao.alibabaMLoginService.canceledQrCode";
+        public static final String OCEAN_CONFIRM_QRCODE = "mtop.taobao.alibabaMLoginService.confirmedQrCode";
+        public static final String OCEAN_ICBU_AUTO_LOGIN = "mtop.taobao.alibabaMLoginService.icbuOldAutoLogin";
+        public static final String OCEAN_LOGOUT = "mtop.taobao.alibabaMLoginService.logout";
+        public static final String OCEAN_PW_LOGIN = "mtop.taobao.alibabaMLoginService.login";
+        public static final String OCEAN_REGISTER_INIT = "mtop.havana.register.country.get";
+        public static final String OCEAN_REGISTER_JOIN = "mtop.havana.register.user.register";
+        public static final String OCEAN_RESEND_SMS = "mtop.havana.register.sms.resend";
+        public static final String OCEAN_SCAN_QRCODE = "mtop.taobao.alibabaMLoginService.scanedQrCode";
+        public static final String OCEAN_SEND_SMS = "mtop.havana.register.sms.send";
+        public static final String OCEAN_SNS_LOGIN = "mtop.taobao.alibabaMLoginService.snsLogin";
+        public static final String OCEAN_TOKEN_LOGIN = "mtop.taobao.alibabaMLoginService.mloginTokenLogin";
+        public static final String OCEAN_VERIFY_SMS = "mtop.havana.register.sms.check";
+        public static final String OLD_TO_NEW_AUTO_LOGIN = "mtop.com.taobao.mloginService.appOldAutoLogin";
+        public static final String PW_LOGIN = "com.taobao.mtop.mloginService.login";
+        public static final String PW_LOGIN_COMMON = "mtop.taobao.commonuse.mloginService.login";
+        public static final String REGISTER_CAPTCHA_CHECKCODE = "mtop.havana.register.machine.verify";
+        public static final String REGISTER_INIT = "mtop.havana.register.sdk.country.get";
+        public static final String REGISTER_QUERY_REGISTER_LINK = "mtop.havana.register.queryregisterlink";
+        public static final String SNS_BIND = "mtop.taobao.mpc.extraBind.management.bindThirdPartId";
+        public static final String SNS_BIND_NEW = "mtop.havana.mpc.thirdBind.management.bindThirdPartId";
+        public static final String SNS_CHANGE_BIND = "mtop.taobao.mpc.extraBind.management.changeBindThirdPartId";
+        public static final String SNS_CHANGE_BIND_NEW = "mtop.havana.mpc.thirdBind.management.changeBindThirdPartId";
+        public static final String SNS_LOGIN = "mtop.taobao.mloginService.snsLogin";
+        public static final String SSO_APP_INFO = "mtop.com.taobao.ssologin.appinfoget";
+        public static final String SSO_LOGIN = "com.taobao.mtop.mloginService.ssoLogin";
+        public static final String TAOBAO_AUTH_VERIFY = "com.taobao.mtop.mloginService.topTokenLogin";
+        public static final String TOKEN_LOGIN = "com.taobao.mtop.mloginService.mloginTokenLogin";
+        public static final String TOKEN_LOGIN_COMMON = "mtop.taobao.commonuse.mloginService.mloginTokenLogin";
+        public static final String UNIFY_SSO_LOGIN = "mtop.com.taobao.mloginservice.unifyssotokenlogin";
+        public static final String UNIFY_SSO_LOGIN_COMMON = "mtop.taobao.commonuse.mloginService.unifyssotokenlogin";
+    }
+
+    public static class CodeGroup {
+        public static final String PWD_ERROR = "pwdError";
+        public static final String SNSFAILED = "snsFailed";
+    }
+
+    public static class ResultActionType {
+        public static final String ALERT = "ALERT";
+        public static final String ALERT_CONFIRM = "ALERT_CONFIRM";
+        public static final String ALERT_REGISTER = "ALERT_REGISTER";
+        public static final String GOTOLOGIN = "GOTOLOGIN";
+        public static final String H5 = "H5";
+        public static final String MAINLANDSMS = "MAINLANDSMS";
+        public static final String OTHER = "OTHER";
+        public static final String OVERSEASMS = "OVERSEASMS";
+        public static final String REGISTER = "REGISTER";
+        public static final String SUCCESS = "SUCCESS";
+        public static final String TOAST = "TOAST";
+        public static final String TOKENLOGIN = "TOKENLOGIN";
+        public static final String UNBIND = "";
+    }
+
+    public static class ResultCode {
+        public static final int SESSION_EXPIRET = 14034;
+        public static final int SUCCESS = 3000;
+    }
+
+    public static class UTConstants {
+        public static final String UT_FACE_GENERATE_RESULT = "FaceLogin_GenerateToken_Result";
+        public static final String UT_FACE_LOCALE_RESULT = "FaceLogin_LocalEnabledResult";
+        public static final String UT_FACE_REMOTE_RESULT = "FaceLogin_RemoteEnabledResult";
+        public static final String UT_FACE_RPSDK = "RPSDK";
+        public static final String UT_FACE_RPSDK_RESULT = "RPSDK_Result";
+        public static final String UT_LOGIN_RESULT = "LoginResult";
+        public static final String UT_LOGIN_TO_REG_FAMILY = "Family";
+        public static final String UT_LOGIN_TO_REG_NORMAL = "Normal";
+        public static final String UT_LOGIN_TYPE_PHONE = "LoginType_Mobile";
+        public static final String UT_Login_To_Reg_Result = "LoginToRegResult";
+        public static final String UT_NETWORK_FAIL = "NetworkFailure";
+        public static final String UT_PAGE_CHECK_AUTH_LOGIN = "Page_SNS_Login";
+        public static final String UT_PAGE_EXTEND = "Page_Extend";
+        public static final String UT_PAGE_FIRST_LOGIN = "Page_Login1";
+        public static final String UT_PAGE_HISTORY_LOGIN = "Page_Login3";
+        public static final String UT_PAGE_SMS_LOGIN1 = "Page_SMSLogin1";
+        public static final String UT_PAGE_SMS_LOGIN2 = "Page_SMSLogin2";
+        public static final String UT_PAGE_SNS_REGISTER = "Page_SNS_Register";
+        public static final String UT_PROPERTY_SUCCESS = "is_success";
+        public static final String UT_RESULT = "result";
+        public static final String UT_SEND_RESULT_FAIL = "SendCodeFail";
+        public static final String UT_SEND_RESULT_SLIDE = "ShowSlideCheck";
+        public static final String UT_SEND_RESULT_SUCCESS = "SendCodeSuccess";
+        public static final String UT_SEND_SMS_RESULT = "SendResult";
+        public static final String UT_SLIDE_RESULT = "SendSlideCheckResult";
+        public static final String UT_SLIDE_SUCCESS = "SlideSuccess";
+        public static final String UT_SMS_ARGREE_REGISTER = "Button-AgreeReg";
+        public static final String UT_SMS_ARGREE_REGISTER_FAMILY = "Button-FamilyAgreeReg";
+        public static final String UT_SMS_DISAGREE_REGISTER = "Button-DisagreeReg";
+        public static final String UT_SMS_TO_LOGIN = "LoginToReg";
+        public static final String UT_SMS_TO_LOGIN_FAMILY = "FamilyLoginToReg";
+        public static final String UT_SOURCE = "source";
+        public static final String UT_SUCCESS_F = "F";
+        public static final String UT_SUCCESS_T = "T";
+        public static final String UT_TYPE = "type";
+        public static final String UT_TYPE_MERGE_ACCOUNT = "mergeAccount";
+        public static final String UT_TYPE_SLIDE_RESULT = "SlideResult";
+        public static final String UT_TYPE_SMS_FAILURE = "SMSLoginFailure";
+        public static final String UT_TYPE_SMS_H5 = "SMSLoginH5";
+        public static final String UT_TYPE_SMS_LOGIN_TO_REG = "SMSReg";
+        public static final String UT_TYPE_SMS_SUCCESS = "SMSLoginSuccess";
+    }
+}

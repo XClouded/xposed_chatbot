@@ -1,0 +1,73 @@
+package com.alibaba.ha.bizerrorreporter;
+
+import android.content.Context;
+import android.util.Log;
+import com.alibaba.ha.bizerrorreporter.module.BizErrorModule;
+import com.alibaba.ha.bizerrorreporter.send.BizErrorThreadPool;
+import com.alibaba.ha.bizerrorreporter.send.Sender;
+import com.alibaba.motu.tbrest.SendService;
+import com.alibaba.motu.tbrest.utils.AppUtils;
+import com.alibaba.motu.tbrest.utils.StringUtils;
+
+public class BizErrorReporter {
+    public String processName;
+    public Long reporterStartTime;
+    public BizErrorSampling sampling;
+    private BizErrorThreadPool threadPool;
+
+    private BizErrorReporter() {
+        this.threadPool = new BizErrorThreadPool();
+        this.reporterStartTime = Long.valueOf(System.currentTimeMillis());
+        this.processName = null;
+        this.sampling = null;
+    }
+
+    private static class InstanceCreater {
+        /* access modifiers changed from: private */
+        public static BizErrorReporter instance = new BizErrorReporter();
+
+        private InstanceCreater() {
+        }
+    }
+
+    public static synchronized BizErrorReporter getInstance() {
+        BizErrorReporter access$100;
+        synchronized (BizErrorReporter.class) {
+            access$100 = InstanceCreater.instance;
+        }
+        return access$100;
+    }
+
+    public void send(Context context, BizErrorModule bizErrorModule) {
+        try {
+            if (SendService.getInstance().context != null) {
+                if (SendService.getInstance().appKey != null) {
+                    if (bizErrorModule != null) {
+                        this.threadPool.submit(new Sender(context, bizErrorModule));
+                        return;
+                    }
+                    return;
+                }
+            }
+            Log.e("MotuCrashAdapter", "you need init rest send service");
+        } catch (Exception e) {
+            Log.e("MotuCrashAdapter", "adapter err", e);
+        }
+    }
+
+    public String getProcessName(Context context) {
+        if (this.processName != null) {
+            return this.processName;
+        }
+        String myProcessNameByCmdline = AppUtils.getMyProcessNameByCmdline();
+        if (StringUtils.isBlank(myProcessNameByCmdline)) {
+            myProcessNameByCmdline = AppUtils.getMyProcessNameByAppProcessInfo(context);
+        }
+        this.processName = myProcessNameByCmdline;
+        return myProcessNameByCmdline;
+    }
+
+    public void openSampling(BizErrorSampling bizErrorSampling) {
+        this.sampling = bizErrorSampling;
+    }
+}

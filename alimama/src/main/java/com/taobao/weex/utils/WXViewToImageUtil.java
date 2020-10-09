@@ -1,0 +1,91 @@
+package com.taobao.weex.utils;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
+import android.provider.MediaStore;
+import android.view.View;
+import androidx.annotation.ColorInt;
+import com.alibaba.android.umbrella.link.export.UMLLCons;
+import com.taobao.weex.WXSDKManager;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class WXViewToImageUtil {
+    public static int mBackgroundColor;
+
+    public interface OnImageSavedCallback {
+        void onSaveFailed(String str);
+
+        void onSaveSucceed(String str);
+    }
+
+    public static void generateImage(final View view, final int i, @ColorInt int i2, final OnImageSavedCallback onImageSavedCallback) {
+        mBackgroundColor = i2;
+        WXSDKManager.getInstance().getWXWorkThreadManager().post(new Thread(new Runnable() {
+            public void run() {
+                Bitmap bitmapFromImageView = WXViewToImageUtil.getBitmapFromImageView(view, i);
+                if (bitmapFromImageView != null) {
+                    final String saveBitmapToGallery = WXViewToImageUtil.saveBitmapToGallery(view.getContext(), bitmapFromImageView, onImageSavedCallback);
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        public void run() {
+                            if (onImageSavedCallback != null) {
+                                onImageSavedCallback.onSaveSucceed(saveBitmapToGallery);
+                                view.getContext().sendBroadcast(new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE", Uri.parse(saveBitmapToGallery)));
+                            }
+                        }
+                    });
+                } else if (onImageSavedCallback != null) {
+                    onImageSavedCallback.onSaveFailed("Image is empty");
+                }
+            }
+        }));
+    }
+
+    public static String saveBitmapToGallery(Context context, Bitmap bitmap, OnImageSavedCallback onImageSavedCallback) {
+        File file = new File(Environment.getExternalStorageDirectory(), UMLLCons.FEATURE_TYPE_WEEX);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        String str = System.currentTimeMillis() + ".jpg";
+        File file2 = new File(file, str);
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(file2);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (FileNotFoundException e) {
+            if (onImageSavedCallback != null) {
+                onImageSavedCallback.onSaveFailed("Image creation failed due to system reason");
+            }
+            e.printStackTrace();
+        } catch (IOException e2) {
+            if (onImageSavedCallback != null) {
+                onImageSavedCallback.onSaveFailed("Android IOException");
+            }
+            e2.printStackTrace();
+        }
+        try {
+            MediaStore.Images.Media.insertImage(context.getContentResolver(), file2.getAbsolutePath(), str, (String) null);
+        } catch (FileNotFoundException e3) {
+            e3.printStackTrace();
+        }
+        context.sendBroadcast(new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE", Uri.parse("file://" + file.getAbsolutePath() + "/" + str)));
+        return file2.getAbsolutePath();
+    }
+
+    public static Bitmap getBitmapFromImageView(View view, int i) {
+        if (view.getWidth() <= 0 || view.getHeight() <= 0) {
+            view.measure(View.MeasureSpec.makeMeasureSpec(i, 1073741824), View.MeasureSpec.makeMeasureSpec(0, 0));
+            view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        }
+        view.setDrawingCacheEnabled(true);
+        return view.getDrawingCache();
+    }
+}

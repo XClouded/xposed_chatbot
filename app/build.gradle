@@ -1,0 +1,118 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+def config = rootProject.ext
+android {
+    compileSdkVersion config.compileSdkVersion
+    buildToolsVersion config.buildToolsVersion
+    defaultConfig {
+        minSdkVersion config.minSdkVersion
+        targetSdkVersion config.targetSdkVersion
+        applicationId config.app.applicationId
+        versionCode config.app.versionCode
+        versionName config.app.versionName
+
+        multiDexEnabled true
+
+    }
+
+    //----------------------签名配置----------------------
+    signingConfigs {
+        debug {
+            //为了方便测试分享或第三方登录  使用正式签名
+            storeFile file('../buildsystem/keystore.jks')
+            storePassword '123456'
+            keyAlias 'key0'
+            keyPassword '123456'
+        }
+        release {
+            storeFile file('../buildsystem/keystore.jks')
+            storePassword '123456'
+            keyAlias 'key0'
+            keyPassword '123456'
+            v2SigningEnabled false
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    buildTypes {
+        debug {
+            versionNameSuffix ""
+            minifyEnabled false
+            shrinkResources false
+            manifestPlaceholders = [DEBUGABLE: true]
+            signingConfig signingConfigs.debug
+
+            buildConfigField "String", "API_HOST", '"https://api-t.xin1.cn/" ' //测试服务器
+        }
+        release {
+            minifyEnabled false
+            multiDexEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
+            shrinkResources false
+            manifestPlaceholders = [DEBUGABLE: false]
+            signingConfig signingConfigs.release
+
+            buildConfigField "String", "API_HOST", '"https://api.xinletao.vip/" ' //线上服务器
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
+
+    lintOptions {
+        quiet true
+        abortOnError false
+        ignoreWarnings true
+        disable 'InvalidPackage'            //Some libraries have issues with this.
+        disable 'OldTargetApi'
+        //Lint gives this warning but SDK 20 would be Android L Beta.
+        disable 'IconDensities'             //For testing purpose. This is safe to remove.
+        disable 'IconMissingDensityFolder'  //For testing purpose. This is safe to remove.
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation config.multidex
+    implementation config.constraint
+    implementation config.kotlin
+    implementation config.libSupportV4
+    implementation config.libSupportAppcompat
+    implementation config.libSupportRecyclerview
+
+    //数据
+    implementation config.retrofit2
+    implementation config.retrofit2AdapterRxjava
+    implementation config.retrofit2ConvertGson
+    implementation config.okHttp
+    implementation config.loggingInterceptor
+    implementation config.rxJava
+    implementation config.rxAndroid
+    implementation config.gson
+    implementation config.lifecycle
+
+    //Xposed框架
+    compileOnly 'de.robv.android.xposed:api:82'
+    compileOnly 'de.robv.android.xposed:api:82:sources'
+}

@@ -1,0 +1,3 @@
+include ':alimama'
+include ':app'
+rootProject.name='chatbot'

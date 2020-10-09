@@ -1,0 +1,70 @@
+package com.uc.webview.export.extension;
+
+import com.uc.webview.export.annotations.Api;
+
+@Api
+/* compiled from: U4Source */
+public final class SettingKeys {
+    public static final String BlockNetworkTraffic = "BlockNetworkTraffic";
+    public static final String CDKEY_MAX_REQ_PER_CLIENT = "max_req_per_client";
+    public static final String CDKEY_MAX_REQ_PER_HOST = "max_req_per_host";
+    public static final String CDResourceHttp2HostList = "http2_host_list";
+    public static final String CachePageNumber = "CachePageNumber";
+    public static final String CookiesBlacklistForJs = "CookiesBlacklistForJs";
+    public static final String DisableDefaultAudioDecoder = "crsp_wddd";
+    public static final String DisableSWScriptCacheList = "crwp_disable_sw_scriptcache_list";
+    public static final String DiscardableFreeIfHasGpuDecode = "DiscardableFreeIfHasGpuDecode";
+    public static final String DiscardableLimitBytes = "DiscardableLimitBytes";
+    public static final String DiscardableReleaseForAllocFailedSwitch = "DiscardableReleaseForAllocFailedSwitch";
+    public static final String DiscardableReleaseFreeAfterSecond = "DiscardableReleaseFreeAfterSecond";
+    public static final String DiscardableReleaseFreeAfterTimeSwitch = "DiscardableReleaseFreeAfterTimeSwitch";
+    public static final String DiscardableReleaseFreeUntilByte = "DiscardableReleaseFreeUntilByte";
+    public static final String DisconnectJavaObjectsWhenSwap = "disconnet_java_objects_when_swap";
+    public static final String DistinguishJSError = "DistinguishJSError";
+    public static final String EmbedSurfaceEmbedViewEnableList = "crwp_embed_surface_embed_view_enable_list";
+    public static final String EmbedViewReattachList = "crwp_embed_view_reattach_list";
+    public static final String EnableAllResponseCallback = "enable_allresponse_callback";
+    public static final String EnableCustomErrPage = "EnableCustomErrPage";
+    public static final String EnableFeatureStats = "enable_feature_stats";
+    public static final String EnableImgErrorInfo = "enable_img_error_info";
+    public static final String FFMpegAudioDecoderSoPaths = "crsp_adffso";
+    public static final String FocusAutoPopupInputWhitelist = "u4_focus_auto_popup_input_list";
+    public static final String GrDiscardableLimitByte = "GrDiscardableLimitByte";
+    public static final String GrResourceCacheLimitByte = "GrResourceCacheLimitByte";
+    public static final String HideUcwebBlackList = "crjs_hide_ucweb_black_list";
+    public static final String HybridRenderEmbedViewEnableList = "crwp_hybrid_render_embed_view_enable_list";
+    public static final String InjectInHeadJavaScript = "crpb_ihjs";
+    public static final String InjectInHeadJavaScriptUrl = "crpb_ihjs_url";
+    public static final String InjectJSInHeadHostList = "crpb_ihhl";
+    public static final String InteractionStatisticSwitch = "interaction_statistic_switch";
+    public static final String IsRunningInWebViewSdk = "IsRunningInWebViewSdk";
+    public static final String MapsgrpOutput = "MapsgrpOutput";
+    public static final String MediaEnableAutoPlayList = "video_play_gesture_whitelist";
+    public static final String MediaPlayerPlugin = "crsp_mpplgs";
+    public static final String MobileDefaultUserAgent = "MobileDefaultUserAgent";
+    public static final String NetworkUserAgentType = "UserAgentType";
+    public static final String PageTimerCountLimit = "PageTimerCountLimit";
+    public static final String SDKRIPort = "SDKRIPort";
+    public static final String SDKUUID = "SDKUUID";
+    public static final String SDKWebviewUA = "SDKWebviewUA";
+    public static final String SWSHostList = "sws_white_list";
+    public static final String SingleThreadServiceWorkerSIR = "single_thread_sw_sir";
+    public static final String TransparentEmbedViewTypeList = "transparent_embed_view_type_list";
+    public static final String U4StateLineSwitch = "wpk_u4statline";
+    public static final String UBISiBuildSeqSec = "UBISiBuildSeqSec";
+    public static final String UBISiIsInterVersion = "UBISiIsInterVersion";
+    public static final String UBISiPrd = "UBISiPrd";
+    public static final String UBISiSubVersion = "UBISiSubVersion";
+    public static final String UBISiVersion = "UBISiVersion";
+    public static final String UCCookieType = "UCCookieType";
+    public static final String UserAdblockJS = "crpb_uadbjs";
+    public static final String VerboseBacktrace = "verbose_backtrace";
+    public static final String VideoUseStandardMode = "video_hardward_accelerate";
+    public static final String VideoUseStandardModeList = "u4xr_video_st_list";
+    public static final String WPKStatPV = "wpk_stat_pv";
+    public static final String WPKStatSampleRate = "wpk_stat_sample_rate";
+    public static final String WatchdogEnableDays = "watchdog_enable_days";
+    public static final String WatchdogRenderThreadSamplingRate = "watchdog_render_thread_sampling_rate";
+    public static final String WatchdogUIThreadSamplingRate = "watchdog_ui_thread_sampling_rate";
+    public static final String WpkScreenshot = "screenshot_bid_white_list";
+}

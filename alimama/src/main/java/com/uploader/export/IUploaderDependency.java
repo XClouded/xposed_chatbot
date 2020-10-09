@@ -1,0 +1,12 @@
+package com.uploader.export;
+
+import androidx.annotation.NonNull;
+
+public interface IUploaderDependency {
+    @NonNull
+    IUploaderEnvironment getEnvironment();
+
+    IUploaderLog getLog();
+
+    IUploaderStatistics getStatistics();
+}

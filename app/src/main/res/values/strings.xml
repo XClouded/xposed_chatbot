@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TBLM机器人</string>
+    <string name="xposed_description">TBLM机器人</string>
+</resources>

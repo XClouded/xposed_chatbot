@@ -173,6 +173,7 @@ public class TBLMHook implements IXposedHookLoadPackage {
                         MyFlashSaleBlockItem blockItem = blockMap.get(itemId);
                         if (null != blockItem) {
                             blockItem.shareTaoToken = shareTaoToken;
+                            System.out.println("获取口令后 blockItem="+blockItem);
                         }
                     }
                 }

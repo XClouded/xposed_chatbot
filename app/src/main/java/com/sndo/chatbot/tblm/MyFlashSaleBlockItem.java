@@ -1,6 +1,9 @@
 package com.sndo.chatbot.tblm;
 
+import android.text.TextUtils;
+
 import de.robv.android.xposed.XposedHelpers;
+
 //{"itemId":"603968965519", "itemName":"浴室挡水条卫生间隔水阻水条淋浴房可弯曲隔断自粘硅胶防水神器","picUrl":"//img.alicdn.com/bao/uploaded/i1/1923001282/O1CN01hNEHQm1LLCNn5n3kt_!!0-item_pic.jpg", "srcUrl":"https://uland.taobao.com/taolijin/detail?pid=mm_492050103_687500054_109455200491&relationId=&vegasCode=mExpubJ2&union_spk=mNkSNu1zXo26UUQQUY67vI%2BiiB9AdUwkNOu2BGvhOJ582sb2s732RKwsTu9VrUpx%2BvEo9qIciENtc%2FWeX0nw%2BfGwoGiM2ax%2F&srcAppkey=&unid=&ptl=floorId%3A32351%3Bapp_pvid%3A59590_11.186.132.66_561_1602495454680%3Btpp_pvid%3Af7261762-0820-49ca-9db8-be3ecec5f42a%3Bcps_campaign_id%3A&itemId=603968965519&union_lens=lensId%3AAPP%401602495454%40f7261762-0820-49ca-9db8-be3ecec5f42a_603968965519%40022ItNvT1zkxjfHDS6qu1snN&spm=a21wq.9116673.rebate.data1_6", "subTkCommissionAmount":"1.65", "vegasField":{"itemDrawLimitNum":"50", "itemDrawTotalNum":"50", "priceAfterAllRights":"11.69", "totalRightsFace":"3.11"}, "shareTaoToken":""}
 public class MyFlashSaleBlockItem {
     public String itemId;
@@ -45,6 +48,9 @@ public class MyFlashSaleBlockItem {
         blockItem.lensId = null != itemId ? String.valueOf(lensId) : null;
         blockItem.srcUrl = null != itemId ? String.valueOf(srcUrl) : null;
         blockItem.picUrl = null != itemId ? String.valueOf(picUrl) : null;
+        if (!TextUtils.isEmpty(blockItem.picUrl) && !blockItem.picUrl.startsWith("http")) {
+            blockItem.picUrl = "https:" + blockItem.picUrl;
+        }
         blockItem.subTkCommissionAmount = null != itemId ? String.valueOf(subTkCommissionAmount) : null;
 
 

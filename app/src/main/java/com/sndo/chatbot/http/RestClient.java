@@ -1,5 +1,7 @@
 package com.sndo.chatbot.http;
 
+import com.sndo.chatbot.hook.TBLMHook;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
@@ -53,21 +55,16 @@ public final class RestClient {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(loggingInterceptor);
-            //            //用于模拟弱网的拦截器
-            //            builder.addNetworkInterceptor(new DoraemonWeakNetworkInterceptor())
-            //                    //网络请求监控的拦截器
-            //                    .addInterceptor(new DoraemonInterceptor());
         }
         getUnsafeOkHttpClient(builder);
         OkHttpClient client = builder.build();
 
         s_retrofit = new Retrofit.Builder()
-                .baseUrl(REST_API_URL)
+                .baseUrl(TBLMHook.API_HOST)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .build();
-        //        changeUrl();
     }
 
 

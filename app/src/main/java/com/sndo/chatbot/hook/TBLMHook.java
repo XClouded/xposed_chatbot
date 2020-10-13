@@ -1,21 +1,21 @@
 package com.sndo.chatbot.hook;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.net.Uri;
 import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
-import android.util.TimeUtils;
 
-import com.sndo.chatbot.R;
+import com.google.gson.Gson;
+import com.sndo.chatbot.http.DataConfig;
+import com.sndo.chatbot.http.RestClient;
 import com.sndo.chatbot.tblm.MyFlashSaleBlockItem;
 import com.sndo.chatbot.tblm.TabItem;
 
 
 import org.json.JSONObject;
 
-import java.net.URL;
-import java.text.SimpleDateFormat;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -28,10 +28,18 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class TBLMHook implements IXposedHookLoadPackage {
 
     private static final String PROCESS_NAME = "com.alimama.moon";
+    public static final String API_HOST="https://api-t.xin1.cn/"; // 测试 https://api-t.xin1.cn/  正式 https://api.xinletao.vip/
+    private static final long INTERVAL = AlarmManager.INTERVAL_HOUR; //请求间隔时间
 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
@@ -54,6 +62,7 @@ public class TBLMHook implements IXposedHookLoadPackage {
     Class<?> ShareInfoRequest2Cls;
     Class<?> shareUtilCls;
     Class<?> requestCls;
+    Class<?> WebPageIntentGeneratorCls;
 
     private void startHook(XC_LoadPackage.LoadPackageParam lpparam) {
         System.out.println("当前线程=" + Thread.currentThread().getName());
@@ -62,6 +71,9 @@ public class TBLMHook implements IXposedHookLoadPackage {
 
         SpmProcessorCls = XposedHelpers.findClassIfExists("com.alimama.moon.utils.SpmProcessor", lpparam.classLoader);
         System.out.println("SpmProcessorCls=" + SpmProcessorCls);
+
+        WebPageIntentGeneratorCls = XposedHelpers.findClassIfExists("com.alimama.moon.web.WebPageIntentGenerator", lpparam.classLoader);
+        System.out.println("WebPageIntentGeneratorCls=" + WebPageIntentGeneratorCls);
 
         ShareInfoRequest2Cls = XposedHelpers.findClassIfExists("com.alimama.union.app.share.flutter.network.ShareInfoRequest2", lpparam.classLoader);
         System.out.println("ShareInfoRequest2Cls=" + ShareInfoRequest2Cls);
@@ -173,7 +185,7 @@ public class TBLMHook implements IXposedHookLoadPackage {
                         MyFlashSaleBlockItem blockItem = blockMap.get(itemId);
                         if (null != blockItem) {
                             blockItem.shareTaoToken = shareTaoToken;
-                            System.out.println("获取口令后 blockItem="+blockItem);
+                            System.out.println("获取口令后 blockItem=" + blockItem);
                         }
                     }
                 }
@@ -418,8 +430,8 @@ public class TBLMHook implements IXposedHookLoadPackage {
     }
 
     private long getDelayTime() {
-        long randomTime = Math.round(Math.random() * 10 * 60 * 1000); // 0-10分钟
-        long delayTime = AlarmManager.INTERVAL_HOUR + randomTime;
+        long randomTime = Math.round(Math.random() * 3 * 60 * 1000); // 0-3分钟
+        long delayTime = INTERVAL + randomTime;
         return delayTime;
     }
 
@@ -463,15 +475,51 @@ public class TBLMHook implements IXposedHookLoadPackage {
                 public void run() {
                     System.out.println("---------------");
                     System.out.println("itemId=" + value.itemId + ",item.name=" + value.itemName);
-                    Object destUrl = XposedHelpers.callStaticMethod(SpmProcessorCls, "getDestUrl", value.srcUrl, "a21wq.9116673.rebate", false);
+
+                    String srcUrl = value.srcUrl;
+
+                    Object destUrl = XposedHelpers.callStaticMethod(SpmProcessorCls, "getDestUrl", srcUrl, "a21wq.9116673.0.0", false);
                     System.out.println("destUrl=" + destUrl);
-                    XposedHelpers.callStaticMethod(shareUtilCls, "addSpmUrl", String.valueOf(destUrl));
-                    getShareInfo(destUrl);
+                    value.srcUrl = null != destUrl ? String.valueOf(destUrl) : null;
+                    //上报数据
+                    sendCollect(value);
+
+                    //获取淘口令
+//                    destUrl = XposedHelpers.callStaticMethod(SpmProcessorCls, "getDestUrl", srcUrl, "a21wq.9116673.rebate", false);
+//                    System.out.println("destUrl=" + destUrl);
+//                    XposedHelpers.callStaticMethod(shareUtilCls, "addSpmUrl", String.valueOf(destUrl));
+//                    getShareInfo(destUrl);
                 }
             }, index * 1000);
             index += 2;
         }
     }
 
+    @SuppressLint("CheckResult")
+    private void sendCollect(MyFlashSaleBlockItem item) {
+        try {
+            String data = new Gson().toJson(item);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), data);
+            Request req = new Request.Builder()
+                    .url(API_HOST + "tlj/collect")
+                    .post(requestBody)
+                    .build();
+            Call call = RestClient.getHttpClient().newCall(req);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    System.out.println("onFailure e=" + e.getMessage());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    System.out.println("onResponse result=" + response.body().string());
+                }
+            });
+        }catch(Exception e){
+            System.out.println("sendCollect e="+e.getMessage());
+        }
+
+    }
 
 }

@@ -38,7 +38,7 @@ import okhttp3.Response;
 public class TBLMHook implements IXposedHookLoadPackage {
 
     private static final String PROCESS_NAME = "com.alimama.moon";
-    public static final String API_HOST="https://api-t.xin1.cn/"; // 测试 https://api-t.xin1.cn/  正式 https://api.xinletao.vip/
+    public static final String API_HOST="https://api.xinletao.vip/"; // 测试 https://api-t.xin1.cn/  正式 https://api.xinletao.vip/
     private static final long INTERVAL = AlarmManager.INTERVAL_HOUR; //请求间隔时间
 
     @Override
